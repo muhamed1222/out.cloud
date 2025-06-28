@@ -1,0 +1,158 @@
+@use '../../styles/variables' as vars;
+@use '../../styles/mixins' as mix;
+@use '../../styles/functions' as fn;
+
+.bento-grid__item {
+  background-color: fn.get-color('widget-bg');
+  border-radius: fn.get-border-radius('lg');
+  padding: fn.get-spacing('md');
+  transition: all 0.2s ease;
+  position: relative;
+  z-index: 1;
+  
+  // Размеры виджетов
+  &--small {
+    grid-column: span 1;
+    grid-row: span 1;
+    min-height: 174px;
+  }
+  
+  &--medium {
+    grid-column: span 1;
+    grid-row: span 2;
+    min-height: 368px;
+  }
+  
+  &--large {
+    grid-column: span 2;
+    grid-row: span 2;
+    min-height: 368px;
+  }
+  
+  // Состояния при перетаскивании
+  &--dragging {
+    cursor: grabbing;
+    box-shadow: 0 8px 24px rgba(fn.get-color('background'), 0.15);
+    transform: scale(1.02);
+    z-index: fn.get-z-index('modal');
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(fn.get-color('primary'), 0.05);
+      border-radius: inherit;
+      pointer-events: none;
+    }
+  }
+  
+  // Ховер эффекты
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(fn.get-color('background'), 0.1);
+    
+    .widget__actions {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  // Анимации
+  @keyframes appear {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  animation: appear 0.3s ease-out;
+}
+
+// Медиа-запросы для адаптивности
+@media (max-width: fn.get-breakpoint('md')) {
+  .bento-grid__item {
+    &--large {
+      grid-column: span 2;
+    }
+  }
+}
+
+@media (max-width: fn.get-breakpoint('sm')) {
+  .bento-grid__item {
+    &--large {
+      grid-column: span 1;
+    }
+    
+    &--medium,
+    &--large {
+      min-height: 300px;
+    }
+  }
+}
+
+.widget {
+  @include mix.flex(column, space-between, stretch);
+  height: 100%;
+  padding: fn.get-spacing('md');
+
+  &__header {
+    @include mix.flex(row, flex-start, center, fn.get-spacing('sm'));
+  }
+
+  &__icon {
+    width: 34px;
+    height: 34px;
+    border-radius: fn.get-border-radius('sm');
+    
+    &--behance {
+      background-color: #1769FF;
+    }
+    
+    &--dribbble {
+      background-color: #EA4C89;
+    }
+    
+    &--instagram {
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: fn.get-border-radius('md');
+  }
+
+  &__content {
+    @include mix.flex(column, flex-start, stretch, fn.get-spacing('sm'));
+    margin-top: fn.get-spacing('md');
+  }
+
+  &__title {
+    @include mix.typography('base', 'medium');
+    margin: 0;
+  }
+
+  &__subtitle {
+    @include mix.typography('sm', 'regular', 'text-secondary');
+    margin: 0;
+  }
+
+  &__stats {
+    @include mix.flex(column, flex-start, stretch, fn.get-spacing('xs'));
+    margin-top: fn.get-spacing('sm');
+  }
+
+  &__stat {
+    @include mix.typography('xs', 'regular', 'text-secondary');
+    letter-spacing: -0.24px;
+  }
+} 

@@ -1,0 +1,50 @@
+@use 'sass:map';
+@use 'variables' as vars;
+
+@function get-color($key) {
+  @return map.get(vars.$colors, $key);
+}
+
+@function get-spacing($key) {
+  @return map.get(vars.$spacing, $key);
+}
+
+@function get-font-size($key) {
+  @return map.get(vars.$font-sizes, $key);
+}
+
+@function get-font-weight($key) {
+  @return map.get(vars.$font-weights, $key);
+}
+
+@function get-border-radius($key) {
+  @return map.get(vars.$border-radius, $key);
+}
+
+@function get-z-index($key) {
+  @return map.get(vars.$z-index, $key);
+}
+
+@function get-transition($key) {
+  @return map.get(vars.$transitions, $key);
+}
+
+@function get-breakpoint($key) {
+  @return map.get(vars.$breakpoints, $key);
+}
+
+@function get-grid($key) {
+  @return map.get(vars.$grid, $key);
+}
+
+@function get-size($key) {
+  @return map.get(vars.$sizes, $key);
+}
+
+// Helper function to validate map keys
+@function validate-map-key($map, $key, $map-name) {
+  @if not map.has-key($map, $key) {
+    @error "Key `#{$key}` not found in #{$map-name} map.";
+  }
+  @return true;
+} 

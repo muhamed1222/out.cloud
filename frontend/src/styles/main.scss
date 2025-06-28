@@ -1,0 +1,56 @@
+@use 'sass:map';
+@use 'variables' as vars;
+@use 'mixins' as mix;
+@use 'functions' as fn;
+@use 'components/widget' as widget;
+@use 'components/header' as header;
+@use 'components/footer' as footer;
+
+// Reset styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: fn.get-color('background');
+  color: fn.get-color('text-primary');
+  font-family: vars.$font-family;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Google Fonts
+@use 'sass:string';
+@use 'sass:list';
+$font-url: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap';
+@if not string.index($font-url, '//') {
+  @import url($font-url);
+}
+
+// Base styles
+.container {
+  max-width: fn.get-size('container');
+  margin: 0 auto;
+  padding: 0 fn.get-spacing('xl');
+}
+
+// Grid layout
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(fn.get-grid('columns'), fn.get-grid('widget-width'));
+  gap: fn.get-grid('gap');
+  padding: fn.get-spacing('xl');
+  
+  @include mix.respond-to('tablet') {
+    grid-template-columns: repeat(2, 1fr);
+    gap: fn.get-spacing('lg');
+  }
+  
+  @include mix.respond-to('mobile') {
+    grid-template-columns: 1fr;
+    gap: fn.get-spacing('md');
+    padding: fn.get-spacing('lg');
+  }
+} 

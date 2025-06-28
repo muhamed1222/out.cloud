@@ -1,0 +1,81 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.widget {
+  @include widget-base;
+  
+  &__header {
+    @include flex(row, space-between, center);
+    margin-bottom: map-get($spacing, 'sm');
+  }
+  
+  &__icon {
+    width: 24px;
+    height: 24px;
+    border-radius: map-get($border-radius, 'sm');
+    
+    @each $type in ('behance', 'dribbble', 'github', 'instagram', 'twitter', 'youtube', 'text', 'image', 'link') {
+      &--#{$type} {
+        background-image: url('../../assets/icons/#{$type}.svg');
+        background-size: cover;
+        background-position: center;
+      }
+    }
+  }
+  
+  &__actions {
+    @include flex(row, flex-end, center, map-get($spacing, 'xs'));
+  }
+  
+  &__action-btn {
+    @include button-reset;
+    width: 24px;
+    height: 24px;
+    border-radius: map-get($border-radius, 'sm');
+    transition: background-color 0.2s ease;
+    
+    &:hover {
+      background-color: rgba($color-primary, 0.1);
+    }
+    
+    &--edit {
+      background-image: url('../../assets/icons/edit.svg');
+      background-size: 16px;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    
+    &--delete {
+      background-image: url('../../assets/icons/delete.svg');
+      background-size: 16px;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  }
+  
+  &__content {
+    @include flex(column, flex-start, stretch, map-get($spacing, 'xs'));
+  }
+  
+  &__title {
+    @include typography('md', 'medium');
+    color: $color-text-primary;
+    margin: 0;
+  }
+  
+  &__subtitle {
+    @include typography('sm', 'regular');
+    color: $color-text-secondary;
+    margin: 0;
+  }
+  
+  &__stats {
+    @include flex(row, flex-start, center, map-get($spacing, 'md'));
+    margin-top: map-get($spacing, 'xs');
+  }
+  
+  &__stat {
+    @include typography('xs', 'regular');
+    color: $color-text-secondary;
+  }
+} 

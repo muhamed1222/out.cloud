@@ -1,0 +1,92 @@
+// Colors
+$colors: (
+  'background': #000000,
+  'widget-bg': #1B1B1B,
+  'text-primary': #FFFFFF,
+  'text-secondary': rgba(255, 255, 255, 0.4),
+  'accent': #FC2D35,
+  'divider': #4E4E4E,
+  'border': rgba(255, 255, 255, 0.1),
+  'primary': #FC2D35,
+  'hover': rgba(255, 255, 255, 0.1),
+  'active': rgba(255, 255, 255, 0.2)
+) !default;
+
+// Typography
+$font-family: 'Inter', sans-serif !default;
+$font-weights: (
+  'regular': 400,
+  'medium': 500,
+  'semibold': 600
+) !default;
+
+$font-sizes: (
+  'xs': 12px,
+  'sm': 14px,
+  'base': 16px,
+  'lg': 18px,
+  'xl': 24px,
+  '2xl': 32px,
+  '3xl': 36px
+) !default;
+
+// Spacing
+$spacing: (
+  'xs': 4px,
+  'sm': 8px,
+  'md': 12px,
+  'lg': 16px,
+  'xl': 24px,
+  '2xl': 32px,
+  '3xl': 48px
+) !default;
+
+// Border Radius
+$border-radius: (
+  'sm': 8px,
+  'md': 15px,
+  'lg': 20px,
+  'full': 9999px
+) !default;
+
+// Grid
+$grid: (
+  'columns': 4,
+  'gap': 20px,
+  'widget-width': 174px
+) !default;
+
+// Z-index
+$z-index: (
+  'modal': 1000,
+  'dropdown': 100,
+  'header': 50,
+  'footer': 40,
+  'overlay': 900
+) !default;
+
+// Transitions
+$transitions: (
+  'fast': 0.15s ease-in-out,
+  'base': 0.3s ease-in-out,
+  'slow': 0.5s ease-in-out
+) !default;
+
+// Breakpoints
+$breakpoints: (
+  'mobile': 576px,
+  'tablet': 768px,
+  'laptop': 992px,
+  'desktop': 1200px
+) !default;
+
+// Sizes
+$sizes: (
+  'container': 1440px,
+  'sidebar': 280px,
+  'header': 80px,
+  'footer': 60px,
+  'widget-sm': 174px,
+  'widget-md': 368px,
+  'widget-lg': 562px
+) !default; 

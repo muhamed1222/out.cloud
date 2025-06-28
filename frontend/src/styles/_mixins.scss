@@ -1,0 +1,171 @@
+@use 'sass:map';
+@use 'variables' as vars;
+@use 'functions' as fn;
+
+// Flexbox helpers
+@mixin flex($direction: row, $justify: flex-start, $align: stretch, $gap: 0) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  @if $gap != 0 {
+    gap: $gap;
+  }
+}
+
+// Grid helpers
+@mixin grid($columns: 1, $gap: fn.get-spacing('md')) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: $gap;
+}
+
+// Typography
+@mixin typography($size, $weight: 'regular', $color: 'text-primary', $line-height: 1.5) {
+  font-family: vars.$font-family;
+  font-size: fn.get-font-size($size);
+  font-weight: fn.get-font-weight($weight);
+  color: fn.get-color($color);
+  line-height: $line-height;
+}
+
+// Button reset
+@mixin button-reset {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  
+  &:focus-visible {
+    outline: 2px solid fn.get-color('accent');
+    outline-offset: 2px;
+  }
+}
+
+// Widget base styles
+@mixin widget-base {
+  background-color: fn.get-color('widget-bg');
+  border-radius: fn.get-border-radius('lg');
+  padding: fn.get-spacing('md');
+  transition: all fn.get-transition('base');
+  border: 1px solid fn.get-color('border');
+  
+  &:hover {
+    transform: translateY(-2px);
+    border-color: fn.get-color('hover');
+  }
+}
+
+// Grid item sizes
+@mixin grid-item($size) {
+  @if $size == 'small' {
+    grid-column: span 1;
+    grid-row: span 1;
+    width: fn.get-size('widget-sm');
+    height: fn.get-size('widget-sm');
+  } @else if $size == 'medium' {
+    grid-column: span 2;
+    grid-row: span 1;
+    width: fn.get-size('widget-md');
+    height: fn.get-size('widget-sm');
+  } @else if $size == 'large' {
+    grid-column: span 2;
+    grid-row: span 2;
+    width: fn.get-size('widget-md');
+    height: fn.get-size('widget-md');
+  }
+}
+
+// Media queries
+@mixin respond-to($breakpoint) {
+  $breakpoint-value: fn.get-breakpoint($breakpoint);
+  
+  @if $breakpoint == 'mobile' {
+    @media (max-width: #{$breakpoint-value - 1px}) { @content; }
+  } @else if $breakpoint == 'tablet' {
+    @media (min-width: #{fn.get-breakpoint('mobile')}) and (max-width: #{$breakpoint-value - 1px}) { @content; }
+  } @else if $breakpoint == 'laptop' {
+    @media (min-width: #{fn.get-breakpoint('tablet')}) and (max-width: #{$breakpoint-value - 1px}) { @content; }
+  } @else if $breakpoint == 'desktop' {
+    @media (min-width: #{fn.get-breakpoint('laptop')}) { @content; }
+  }
+}
+
+// Button styles
+@mixin button-base($variant: 'primary', $size: 'md') {
+  @include flex(row, center, center, fn.get-spacing('sm'));
+  @include button-reset;
+  
+  border-radius: fn.get-border-radius('sm');
+  transition: all fn.get-transition('fast');
+  white-space: nowrap;
+  
+  @if $size == 'sm' {
+    padding: fn.get-spacing('xs') fn.get-spacing('md');
+    font-size: fn.get-font-size('sm');
+  } @else if $size == 'md' {
+    padding: fn.get-spacing('sm') fn.get-spacing('lg');
+    font-size: fn.get-font-size('base');
+  } @else if $size == 'lg' {
+    padding: fn.get-spacing('md') fn.get-spacing('xl');
+    font-size: fn.get-font-size('lg');
+  }
+  
+  @if $variant == 'primary' {
+    background-color: fn.get-color('accent');
+    color: fn.get-color('text-primary');
+    
+    &:hover {
+      opacity: 0.9;
+    }
+    
+    &:active {
+      transform: translateY(1px);
+    }
+  } @else if $variant == 'secondary' {
+    background-color: transparent;
+    border: 1px solid fn.get-color('border');
+    color: fn.get-color('text-primary');
+    
+    &:hover {
+      border-color: fn.get-color('hover');
+      background-color: fn.get-color('hover');
+    }
+    
+    &:active {
+      background-color: fn.get-color('active');
+      transform: translateY(1px);
+    }
+  }
+}
+
+// Container
+@mixin container {
+  width: 100%;
+  max-width: fn.get-size('container');
+  margin: 0 auto;
+  padding: 0 fn.get-spacing('xl');
+  
+  @include respond-to('tablet') {
+    padding: 0 fn.get-spacing('lg');
+  }
+  
+  @include respond-to('mobile') {
+    padding: 0 fn.get-spacing('md');
+  }
+}
+
+// Hide scrollbar
+@mixin hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+} 

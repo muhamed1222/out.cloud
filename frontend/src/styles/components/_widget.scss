@@ -1,0 +1,25 @@
+@use '../variables' as vars;
+@use '../mixins' as mix;
+@use '../functions' as fn;
+
+.widget {
+  @include mix.widget-base;
+  
+  &__header {
+    @include mix.flex(row, flex-start, center, fn.get-spacing('sm'));
+  }
+
+  &__title {
+    @include mix.typography('base', 'medium');
+    margin: 0;
+  }
+
+  &__content {
+    margin-top: fn.get-spacing('md');
+  }
+
+  &__footer {
+    @include mix.flex(row, space-between, center);
+    margin-top: fn.get-spacing('md');
+  }
+} 

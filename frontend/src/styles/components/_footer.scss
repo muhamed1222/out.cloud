@@ -1,0 +1,32 @@
+@use '../variables' as vars;
+@use '../mixins' as mix;
+@use '../functions' as fn;
+
+.footer {
+  @include mix.flex(row, space-between, center);
+  padding: fn.get-spacing('md') fn.get-spacing('xl');
+  background-color: fn.get-color('widget-bg');
+  border-top: 1px solid fn.get-color('border');
+
+  &__copyright {
+    @include mix.typography('sm', 'regular', 'text-secondary');
+  }
+
+  &__links {
+    @include mix.flex(row, flex-start, center, fn.get-spacing('lg'));
+  }
+
+  &__link {
+    @include mix.typography('sm', 'medium');
+    text-decoration: none;
+    transition: color fn.get-transition('fast');
+
+    &:hover {
+      color: fn.get-color('accent');
+    }
+  }
+
+  &__social {
+    @include mix.flex(row, flex-start, center, fn.get-spacing('md'));
+  }
+} 
